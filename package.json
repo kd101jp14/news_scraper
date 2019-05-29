@@ -1,0 +1,30 @@
+{
+  "name": "news_scraper",
+  "version": "1.0.0",
+  "description": "This web applictaion allows users to view the news, which is scraped on the back end, and leave comments on the news articles.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kd101jp14/news_scraper.git"
+  },
+  "keywords": [
+    "news",
+    "scraper"
+  ],
+  "author": "kd101jp14",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kd101jp14/news_scraper/issues"
+  },
+  "homepage": "https://github.com/kd101jp14/news_scraper#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "mongoose": "^5.5.11"
+  }
+}
