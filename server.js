@@ -7,14 +7,11 @@ var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
 
-// Require all models
-var db = require("./models");
-
 // Set up PORT
 var PORT = process.env.PORT || 3000;
 
-// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+// Require all models
+var db = require("./models");
 
 // Initialize Express
 var app = express();
@@ -29,8 +26,10 @@ app.use(express.json());
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static("public"));
 
+// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 // Connect to the Mongo DB
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // Set Handlebars
 var exphbs = require("express-handlebars");
