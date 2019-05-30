@@ -1,23 +1,27 @@
 var express = require("express");
+var router = express.Router();
+var logger = require("morgan");
+var mongoose = require("mongoose");
+var axios = require("axios");
+var cheerio = require("cheerio");
 
 // Import the models to use their database functions
-var Article = require("../models/Article.js");
-var Comment = require("../models/Comment.js");
+var db = require("./../models");
 
 // A GET route for scraping the positive.news website
-module.exports = function(app) {
-  app.get("/", function(req, res) {
+
+  router.get("/", function(req, res) {
     res.send("Welcome to the positive news scraper!");
   });
 
-  app.get("/scrape", function(req, res) {
+  router.get("/scrape", function(req, res) {
     // Grab the body of the html with axios
     axios.get("https://www.positive.news/").then(function(response) {
       // Load the data into cheerio and save it to $ for a shorthand selector
       var $ = cheerio.load(response.data);
 
-      // Grab every h2 within an article tag, and do the following:
-      $(".card-content").each(function(i, element) {
+      // Grab every element with the class of `card__content`, and do the following:
+      $(".card__content").each(function(i, element) {
         // Save an empty result object
         var result = {};
 
@@ -47,7 +51,7 @@ module.exports = function(app) {
   });
 
   // Route for getting all Articles from the db
-  app.get("/articles", function(req, res) {
+  router.get("/articles", function(req, res) {
     // Grab every document in the Articles collection
     db.Article.find({})
       .then(function(dbArticle) {
@@ -61,7 +65,7 @@ module.exports = function(app) {
   });
 
   // Route for saving/updating an Article's associated comment
-  app.post("/articles/:id", function(req, res) {
+  router.post("/articles/:id", function(req, res) {
     // Create a new comment and pass the req.body to the entry
     db.Comment.create(req.body)
       .then(function(dbComment) {
@@ -83,4 +87,6 @@ module.exports = function(app) {
         res.json(err);
       });
   });
-};
+
+// Export routes for server.js to use.
+module.exports = router;
