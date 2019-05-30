@@ -11,7 +11,7 @@ var db = require("./../models");
 // A GET route for scraping the positive.news website
 
   router.get("/", function(req, res) {
-    res.send("Welcome to the positive news scraper!");
+    res.render("index");
   });
 
   router.get("/scrape", function(req, res) {
