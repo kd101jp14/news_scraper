@@ -1,7 +1,5 @@
 var express = require("express");
 var router = express.Router();
-var logger = require("morgan");
-var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
 
